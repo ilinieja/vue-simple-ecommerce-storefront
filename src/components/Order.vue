@@ -1,11 +1,13 @@
 <template>
     <div class="container">
-        <div class="columns">
-            <div class="column is-4">
-                <img src="https://cdn.scotch.io/2842/b7yhhuUPSGO1fEkMHD6P_sticks.jpeg" alt="A bundle of sticks">
+        <div class="columns is-vcentered">
+            <div class="column is-6">
+                <div class="product-image-container">
+                    <img class="product-image" src="../assets/hex-line.svg" alt="Minimal thing">
+                </div>
             </div>
 
-            <div class="column is-4">
+            <div class="column is-6">
                 <div class="field">
                     <label>Name</label>
                     <div class="control has-icons-left has-icons-right">
@@ -31,70 +33,41 @@
                     <span class="help is-danger" v-show="cardNumberError">{{ cardNumberError }}</span>
                 </div>
 
-                <div class="field">
-                    <label for="cvc">CVC</label>
-                    <input id="cvc" v-model="card.cvc" type="text" class="input" placeholder="123">
-                    <span class="help is-danger" v-show="cardCvcError">{{ cardCvcError }}</span>
-                </div>
+                <div class="columns">
+                    <div class="field column">
+                        <label for="exp_month">Expiry Month</label>
+                        <input id="exp_month"
+                               v-model="card.exp_month"
+                               type="text"
+                               :class="['is-danger' ? cardMonthError : '', 'input']"
+                               placeholder="MM"
+                        >
+                        <span class="help is-danger" v-show="cardMonthError">{{ cardMonthError }}</span>
+                    </div>
 
-                <div class="field">
-                    <label for="exp_month">Expiry Month</label>
-                    <input id="exp_month"
-                           v-model="card.exp_month"
-                           type="text"
-                           :class="['is-danger' ? cardMonthError : '', 'input']"
-                           placeholder="MM"
-                    >
-                    <span class="help is-danger" v-show="cardMonthError">{{ cardMonthError }}</span>
-                </div>
+                    <div class="field column">
+                        <label for="exp_month">Expiry Year</label>
+                        <input id="exp_year"
+                               v-model="card.exp_year"
+                               type="text"
+                               :class="['is-danger' ? cardYearError : '', 'input']"
+                               placeholder="YY"
+                        >
+                        <span class="help is-danger" v-show="cardYearError">{{ cardYearError }}</span>
+                    </div>
 
-                <div class="field">
-                    <label for="exp_month">Expiry Year</label>
-                    <input id="exp_year"
-                           v-model="card.exp_year"
-                           type="text"
-                           :class="['is-danger' ? cardYearError : '', 'input']"
-                           placeholder="YY"
-                    >
-                    <span class="help is-danger" v-show="cardYearError">{{ cardYearError }}</span>
+                    <div class="field column">
+                        <label for="cvc">CVC</label>
+                        <input id="cvc" v-model="card.cvc" type="text" class="input" placeholder="123">
+                        <span class="help is-danger" v-show="cardCvcError">{{ cardCvcError }}</span>
+                    </div>
                 </div>
 
                 <div class="help is-danger" v-if="cardCheckError">
                     <span>{{ cardCheckErrorMessage }}</span>
                 </div>
             </div>
-
-            <div class="column is-4">
-                <label>Special Note</label>
-                <textarea class="textarea"
-                          placeholder="What would you like the note to say?"
-                          v-model="specialNote"
-                ></textarea>
-
-                <hr>
-
-                <div class="field">
-                    <label>Address</label>
-                    <input type="text" class="input" v-model="address.street" placeholder="123 Fake St #303">
-                </div>
-
-                <div class="field">
-                    <label>City</label>
-                    <input type="text" class="input" v-model="address.city" placeholder="San Francisco">
-                </div>
-
-                <div class="field">
-                    <label>State</label>
-                    <input type="text" class="input" v-model="address.state" placeholder="CA">
-                </div>
-
-                <div class="field">
-                    <label>Zip</label>
-                    <input type="text" class="input" v-model="address.zip" placeholder="94607">
-                </div>
-            </div>
         </div>
-
         <div class="columns">
             <div class="column is-12">
                 <button type="submit"
@@ -111,30 +84,18 @@
 </template>
 
 <style>
-    h2 {
-        text-decoration: underline;
+    .product-image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .textarea:not([rows]) {
-        max-height: 110px;
-        min-height: 110px;
+    .product-image {
+        height: 400px;
     }
 
     .container {
         margin-bottom: 30px;
-    }
-
-    .column > img {
-        margin-top: 60px;
-    }
-
-    .button-field {
-        display: flex;
-        justify-content: center;
-    }
-
-    #left-line {
-        margin-top: 27px;
     }
 </style>
 
@@ -144,20 +105,13 @@
         data(){
             return {
                 stripeKey: 'pk_test_Ng7fkuBEMT9NVNffLfW45VWj',
-                name: '',
-                email: '',
-                specialNote: '',
-                address: {
-                    street: '',
-                    city: '',
-                    state: '',
-                    zip: ''
-                },
+                name: 'Just Testing',
+                email: 'justtesting@gmail.com',
                 card: {
-                    number: '',
-                    cvc: '',
-                    exp_month: '',
-                    exp_year: ''
+                    number: '5555555555554444',
+                    cvc: '123',
+                    exp_month: '12',
+                    exp_year: '30'
                 },
                 cardNumberError: null,
                 cardCvcError: null,
@@ -210,28 +164,29 @@
                     this.cardCheckErrorMessage = response.error.message;
                     this.cardCheckError = true;
                     console.error(response.error);
-                } else {
-                    var token_from_stripe = response.id;
-                    var request = {
-                        name: this.name,
-                        email: this.email,
-                        specialNote: this.specialNote,
-                        address: this.address,
-                        card: this.card,
-                        token_from_stripe: token_from_stripe
-                    };
-
-                    axios.post(`${window.endpoint}/charge`, request)
-                        .then((res) => {
-                            var error = res.data.error;
-                            var charge = res.data.charge;
-                            if (error) {
-                                console.error(error);
-                            } else {
-                                this.$router.push({ path: `order-complete/${charge.id}` })
-                            }
-                        });
+                    return;
                 }
+
+                const token_from_stripe = response.id;
+                const request = {
+                    name: this.name,
+                    email: this.email,
+                    specialNote: this.specialNote,
+                    address: this.address,
+                    card: this.card,
+                    token_from_stripe: token_from_stripe
+                };
+
+                axios.post(`${window.endpoint}/charge`, request)
+                    .then((res) => {
+                        const error = res.data.error;
+                        const charge = res.data.charge;
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        this.$router.push({ path: `order-complete/${charge.id}` });
+                    });
             }
         }
     }
