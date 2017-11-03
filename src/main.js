@@ -32,3 +32,11 @@ new Vue({
     },
     render: h => h(App)
 });
+
+Vue.filter('moment', (date) => {
+    return moment.unix(date).format('MMMM Do, YYYY — h:mm a');
+});
+
+Vue.filter('currency', (amount) => {
+    return `$${(amount / 100).toFixed(2)}`;
+});

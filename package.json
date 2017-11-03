@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "braintree-web-drop-in": "^1.8.1",
     "moments": "0.0.2",
     "parallax-js": "^3.1.0",
     "vue": "^2.4.4",

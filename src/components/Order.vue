@@ -11,72 +11,52 @@
                 <div class="field">
                     <label>Name</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="First and Last" v-model="name">
+                        <input class="input"
+                               type="text"
+                               placeholder="First and Last"
+                               v-model="name"
+                               :class="{ 'is-danger': nameError }"
+                               @keyup="validate"
+                               @focus="clearErrors"
+                        >
                         <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                    </div>
+                    <div class="help is-danger" v-if="nameError">
+                        <span>{{ nameError }}</span>
                     </div>
                 </div>
 
                 <div class="field">
                     <label>Email</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Email address" v-model="email">
+                    <div class="control has-icons-left has-icons-right" :class="{ 'is-danger': emailError }">
+                        <input
+                                class="input"
+                                type="text"
+                                placeholder="Email"
+                                v-model="email"
+                                :class="{ 'is-danger': emailError }"
+                                @keyup="validate"
+                                @focus="clearErrors"
+                        >
                         <span class="icon is-small is-left"><i class="fa fa-envelope"></i></span>
                     </div>
-                </div>
-
-                <hr id="left-line">
-
-                <div class="field">
-                    <label for="card_number">Card Number</label>
-                    <input id="card_number" v-model="card.number" type="text"
-                           :class="['is-danger' ? cardNumberError : '', 'input']" placeholder="4242424242424242">
-                    <span class="help is-danger" v-show="cardNumberError">{{ cardNumberError }}</span>
-                </div>
-
-                <div class="columns">
-                    <div class="field column">
-                        <label for="exp_month">Expiry Month</label>
-                        <input id="exp_month"
-                               v-model="card.exp_month"
-                               type="text"
-                               :class="['is-danger' ? cardMonthError : '', 'input']"
-                               placeholder="MM"
-                        >
-                        <span class="help is-danger" v-show="cardMonthError">{{ cardMonthError }}</span>
-                    </div>
-
-                    <div class="field column">
-                        <label for="exp_month">Expiry Year</label>
-                        <input id="exp_year"
-                               v-model="card.exp_year"
-                               type="text"
-                               :class="['is-danger' ? cardYearError : '', 'input']"
-                               placeholder="YY"
-                        >
-                        <span class="help is-danger" v-show="cardYearError">{{ cardYearError }}</span>
-                    </div>
-
-                    <div class="field column">
-                        <label for="cvc">CVC</label>
-                        <input id="cvc" v-model="card.cvc" type="text" class="input" placeholder="123">
-                        <span class="help is-danger" v-show="cardCvcError">{{ cardCvcError }}</span>
+                    <div class="help is-danger" v-if="emailError">
+                        <span>{{ emailError }}</span>
                     </div>
                 </div>
 
-                <div class="help is-danger" v-if="cardCheckError">
-                    <span>{{ cardCheckErrorMessage }}</span>
-                </div>
+                <div id="dropin-container"></div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-12">
                 <button type="submit"
                         class="button is-primary is-large is-pulled-right"
-                        @click.prevent="validate"
-                        :disabled="cardCheckSending"
-                >
-                    <span v-if="cardCheckSending"><i class="fa fa-btn fa-spinner fa-spin"></i>Ordering…</span>
-                    <span v-else>Place Order</span>
+                        @click="createPayment"
+                        :disabled="loadingDropin || cardCheckSending || !formValid"
+                        :class="{ 'is-loading': cardCheckSending }"
+                        ref="submit-button"
+                > Place Order
                 </button>
             </div>
         </div>
@@ -101,92 +81,89 @@
 
 <script>
     import axios from 'axios';
+    import dropin from 'braintree-web-drop-in';
+
     export default {
         data(){
             return {
-                stripeKey: 'pk_test_Ng7fkuBEMT9NVNffLfW45VWj',
                 name: 'Just Testing',
                 email: 'justtesting@gmail.com',
-                card: {
-                    number: '5555555555554444',
-                    cvc: '123',
-                    exp_month: '12',
-                    exp_year: '30'
-                },
-                cardNumberError: null,
-                cardCvcError: null,
-                cardMonthError: null,
-                cardYearError: null,
+                nameError: false,
+                emailError: false,
                 cardCheckSending: false,
-                cardCheckError: false,
-                cardCheckErrorMessage: ''
+                loadingDropin: true,
+                formValid: true,
             }
+        },
+        created() {
+            this.btClientTokenPromise = axios.get(`${window.endpoint}/client_token`);
+        },
+        mounted() {
+            this.btClientTokenPromise
+                .then((token) => {
+                    return dropin.create({
+                        authorization: token.data,
+                        container: '#dropin-container'
+                    });
+                })
+                .then((instance) => {
+                    this.loadingDropin = false;
+                    this.dropinInstance = instance;
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         },
         methods: {
             validate(){
-                this.clearCardErrors();
-                let valid = true;
-                if (!this.card.number) {
-                    valid = false;
-                    this.cardNumberError = 'Card Number is Required'
+                this.clearErrors();
+                this.formValid = true;
+                if (!this.name) {
+                    this.formValid = false;
+                    this.nameError = 'Name is required'
                 }
-                if (!this.card.cvc) {
-                    valid = false;
-                    this.cardCvcError = 'CVC is Required'
-                }
-                if (!this.card.exp_month) {
-                    valid = false;
-                    this.cardMonthError = 'Month is Required'
-                }
-                if (!this.card.exp_year) {
-                    valid = false;
-                    this.cardYearError = 'Year is Required'
-                }
-                if (valid) {
-                    this.createToken();
+                if (!this.email) {
+                    this.formValid = false;
+                    this.emailError = 'Email is required'
                 }
             },
-            clearCardErrors(){
-                this.cardNumberError = null;
-                this.cardCvcError = null;
-                this.cardMonthError = null;
-                this.cardYearError = null;
+            clearErrors(){
+                this.nameError = null;
+                this.emailError = null;
             },
-            createToken() {
-                this.cardCheckError = false;
-                window.Stripe.setPublishableKey(this.stripeKey);
-                window.Stripe.createToken(this.card, this.stripeResponseHandler.bind(this));
-                this.cardCheckSending = true;
-            },
-            stripeResponseHandler(status, response) {
-                this.cardCheckSending = false;
-                if (response.error) {
-                    this.cardCheckErrorMessage = response.error.message;
-                    this.cardCheckError = true;
-                    console.error(response.error);
+            createPayment() {
+                if (!this.formValid) {
                     return;
                 }
 
-                const token_from_stripe = response.id;
+                this.cardCheckSending = true;
+                this.dropinInstance.requestPaymentMethod(this.completePayment.bind(this));
+            },
+            completePayment(err, payload) {
+                if (err) {
+                    this.cardCheckSending = false;
+                    console.error(err);
+                    return;
+                }
+
                 const request = {
-                    name: this.name,
                     email: this.email,
-                    specialNote: this.specialNote,
-                    address: this.address,
-                    card: this.card,
-                    token_from_stripe: token_from_stripe
+                    payment_method_nonce: payload.nonce,
                 };
 
                 axios.post(`${window.endpoint}/charge`, request)
                     .then((res) => {
-                        const error = res.data.error;
+                        this.cardCheckSending = false;
                         const charge = res.data.charge;
-                        if (error) {
-                            console.error(error);
+                        if (res.data.error) {
+                            console.error(res.data.error);
                             return;
                         }
                         this.$router.push({ path: `order-complete/${charge.id}` });
-                    });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
             }
         }
     }

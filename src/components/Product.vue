@@ -30,7 +30,7 @@
                     <br>
                     <p>This thing is abstract and it's minimal. Yeah, this demo is not about long and clever product
                         description. It's about pretty Vue frontend and payments integration. Proceed to order details
-                        to learn more.</p>
+                        to see more.</p>
                     <br>
                     <br>
                     <p class="level">

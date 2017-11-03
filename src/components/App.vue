@@ -5,7 +5,7 @@
                 <nav class="nav">
                     <div class="container">
                         <div class="nav-left">
-                            <router-link to="/" class="nav-item">Stickly</router-link>
+                            <router-link to="/" class="nav-item">Minimal</router-link>
                         </div>
                         <span class="nav-toggle">
                             <span></span>
@@ -13,7 +13,7 @@
                             <span></span>
                         </span>
                         <div class="nav-right nav-menu">
-                            <a class="nav-item" href="support@stickly.com">Contact</a>
+                            <a class="nav-item" href="mailto:b2709f1b@gmail.com?Subject=Landing store demo feedback">Contact</a>
                         </div>
                     </div>
                 </nav>
