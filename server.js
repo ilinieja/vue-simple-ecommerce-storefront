@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -60,7 +61,11 @@ app.get('/charge/:id', (req, res) => {
     });
 });
 
-app.use(express.static(__dirname));
+app.use('/dist', express.static(`${__dirname}/dist`));
+app.use('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 
 app.listen(port, () => {
     console.log('Server listening on port ' + port)
