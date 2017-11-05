@@ -1,6 +1,8 @@
 # Landing store POC project
 Simple landing store project frontend.
 
+Backend can be found [here](https://github.com/b2709f1b/poc-landing-store-backend).
+
 ## Stack
 * [Vue.js](https://vuejs.org/)
 * [Bulma](https://bulma.io/)
