@@ -5,9 +5,10 @@
   "author": "b2709f1b",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production webpack && node server.js",
+    "start": "node server.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "postinstall": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
     "axios": "^0.17.0",
