@@ -2,7 +2,7 @@
 Proof-of-concept landing store project
 
 ## Demo
-Available [here](https://poc-landing-store.herokuapp.com/)
+Available online [here](https://poc-landing-store.herokuapp.com/)
 
 ![Demo](https://image.ibb.co/bzbKqw/Peek_2017_11_05_18_03.gif)
 
