@@ -14,14 +14,9 @@ Proof-of-concept landing store project
 * [Braintree](https://www.braintreepayments.com/)
 
 #### Environment vars:
-Can be set in `.env` file in project root for local project run.
-```
-PORT= # server will listen on this prot
-BT_MERCHANT_ID=
-BT_PUBLIC_KEY=
-BT_PRIVATE_KEY=
-```
-`BT_` environment variables can be obtained by signing up at [Braintree](https://www.braintreepayments.com/)
+All needed environment variables are listed inside `.env.default` without values, with comments
+
+Environment vars can be set in `.env` file in project root for local project run.
 
 ## Build and  run
 ``` bash
