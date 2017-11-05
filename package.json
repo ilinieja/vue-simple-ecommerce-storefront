@@ -1,10 +1,11 @@
 {
   "name": "poc-landing-store",
-  "description": "A Vue.js project",
+  "description": "Proof-of-concept landing store project",
   "version": "1.0.0",
   "author": "b2709f1b",
   "private": true,
   "scripts": {
+    "start": "node server.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
@@ -14,7 +15,13 @@
     "moments": "0.0.2",
     "parallax-js": "^3.1.0",
     "vue": "^2.4.4",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "body-parser": "^1.18.2",
+    "braintree": "^2.3.0",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "method-override": "^2.3.10"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

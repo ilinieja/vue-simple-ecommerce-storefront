@@ -1,7 +1,9 @@
+const localServerUrl = `http://localhost:${process.env.PORT || 3000}`;
+
 if (process.env.NODE_ENV === 'production') {
-    window.endpoint = 'https://stickly.herokuapp.com';
+    window.endpoint = process.env.SERVER_URL || localServerUrl;
 } else {
-    window.endpoint = 'http://localhost:3000';
+    window.endpoint = localServerUrl;
 }
 
 window.moment = require('moment');
