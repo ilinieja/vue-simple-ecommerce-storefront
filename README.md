@@ -1,22 +1,39 @@
-# Landing store POC project
-Simple landing store project frontend.
-
-Backend can be found [here](https://github.com/b2709f1b/poc-landing-store-backend).
+# Landing store POC
+Proof-of-concept landing store project
 
 ## Stack
+#### Frontend:
 * [Vue.js](https://vuejs.org/)
 * [Bulma](https://bulma.io/)
 * [Parallax.js](http://matthew.wagerfield.com/parallax/)
-* [Braintree](https://www.braintreepayments.com/) for payments integration
 
-## Build
+#### Backend:
+* [Express.js](https://expressjs.com/)
+
+#### Payments:
+* [Braintree](https://www.braintreepayments.com/)
+
+#### Environment vars:
+Can be set in `.env` file in project root for local project run.
+```
+PORT= # server will listen on this prot
+BT_MERCHANT_ID=
+BT_PUBLIC_KEY=
+BT_PRIVATE_KEY=
+```
+`BT_` environment variables can be obtained by signing up at [Braintree](https://www.braintreepayments.com/)
+
+## Build and  run
 ``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
+# build frontend for production with minification
 npm run build
+
+# run server
+npm start
+
+# serve frontend with hot reload at localhost:8080
+npm run dev
 ```
