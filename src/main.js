@@ -1,10 +1,5 @@
 const localServerUrl = `http://localhost:${process.env.PORT || 3000}`;
-
-if (process.env.NODE_ENV === 'production') {
-    window.endpoint = process.env.SERVER_URL || localServerUrl;
-} else {
-    window.endpoint = localServerUrl;
-}
+window.endpoint = process.env.SERVER_URL || localServerUrl;
 
 window.moment = require('moment');
 window.axios = require('axios');
