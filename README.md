@@ -4,7 +4,7 @@ Proof-of-concept landing store project
 ## Demo
 Available online [here](https://poc-landing-store.herokuapp.com/)
 
-![Demo](https://image.ibb.co/bzbKqw/Peek_2017_11_05_18_03.gif)
+![Demo](https://image.ibb.co/eYNucb/Peek_2017_11_07_17_09.gif)
 
 ## Stack
 #### Frontend:
