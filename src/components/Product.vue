@@ -47,16 +47,6 @@
     </div>
 </template>
 
-<style scoped>
-    .product-section {
-        padding-top: 6rem;
-    }
-
-    .product-image-main-el, .product-image-bg-el {
-        width: 80%;
-    }
-</style>
-
 <script>
     import Parallax from 'parallax-js';
 
