@@ -3,7 +3,7 @@
         <div class="columns is-vcentered">
             <div class="column is-6">
                 <div class="product-image-container">
-                    <img class="product-image" src="../assets/hex-line.svg" alt="Minimal thing">
+                    <img class="product-image" src="../assets/pusheen.svg" alt="Minimal thing">
                 </div>
             </div>
 
@@ -45,7 +45,15 @@
                     </div>
                 </div>
 
-                <div id="dropin-container"></div>
+                <div id="dropin-placeholder">
+                    <button type="button"
+                            class="button is-large card-placeholder"
+                            :disabled="true"
+                            :class="{ 'is-loading': true }"
+                            v-if="loadingDropin"
+                    ></button>
+                </div>
+                <div id="dropin-container" :class="{ 'is-hidden': loadingDropin }"></div>
             </div>
         </div>
         <div class="columns">
@@ -76,6 +84,12 @@
 
     .container {
         margin-bottom: 30px;
+    }
+
+    .card-placeholder {
+        height: 227px;
+        width: 100%;
+        margin: 32px 0 13px 0;
     }
 </style>
 

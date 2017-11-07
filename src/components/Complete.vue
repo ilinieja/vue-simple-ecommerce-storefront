@@ -3,7 +3,7 @@
         <br>
         <h3>Order complete!</h3>
         <p>
-            Congratulations! You bought this thing.
+            Congratulations! You bought Pusheen, enjoy it responsibly.
             <br>
             Contact us: <a href="mailto:b2709f1b@gmail.com?Subject=Landing store demo feedback">b2709f1b@gmail.com</a>
             <br>

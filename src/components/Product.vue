@@ -3,34 +3,36 @@
         <div class="container">
             <div class="columns is-vcentered">
                 <div class="column is-6 product-image-container" ref="parallax-container">
-                    <img class="product-image-main-el" src="../assets/hex.svg"
-                         data-depth="0.1"
+                    <img class="product-image-bg-el" src="../assets/bg.svg"
+                         data-depth="0.4"
                     >
-                    <img class="product-image-additional-el"
-                         src="../assets/line.svg"
-                         data-depth="0.2"
-                    >
-                    <img class="product-image-fragment-el"
-                         src="../assets/fragment.svg"
+                    <img class="product-image-bg-el" src="../assets/cloud2.svg"
                          data-depth="0.5"
                     >
-                    <img class="product-image-fragment-el-1"
-                         src="../assets/fragment1.svg"
-                         data-depth="1.0"
+                    <img class="product-image-bg-el" src="../assets/cloud1.svg"
+                         data-depth="0.8"
                     >
-                    <img class="product-image-fragment-el-2"
-                         src="../assets/fragment2.svg"
-                         data-depth="0.4"
+                    <img class="product-image-bg-el" src="../assets/cloud.svg"
+                         data-depth="1.6"
+                    >
+                    <img class="product-image-bg-el" src="../assets/bg1.svg"
+                         data-depth="1.6"
+                    >
+                    <img class="product-image-main-el" src="../assets/pusheen.svg"
+                         data-depth="2.4"
                     >
                 </div>
                 <div class="column is-5 is-offset-1">
-                    <div class="title is-2">Abstract minimal thing</div>
+                    <div class="title is-2">Pusheen cat</div>
                     <p class="title is-3 has-text-muted">$1</p>
                     <hr>
                     <br>
-                    <p>This thing is abstract and it's minimal. Yeah, this demo is not about long and clever product
-                        description. It's about pretty Vue frontend and payments integration. Proceed to order details
-                        to see more.</p>
+                    <p>This is a cat and its name is Pusheen. It's cute. Buy it to test payment integration.
+                        Integration is sandboxed, so you can use test payment data from
+                        <a target="_blank" href="https://developers.braintreepayments.com/guides/credit-cards/testing-go-live/node">
+                            here
+                        </a>
+                    </p>
                     <br>
                     <br>
                     <p class="level">
@@ -50,40 +52,8 @@
         padding-top: 6rem;
     }
 
-    .product-image-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-    .product-image-main-el {
-        height: 450px;
-    }
-
-    .product-image-additional-el {
-        height: 350px;
-        margin-left: 120px;
-        margin-top: 70px;
-    }
-
-    .product-image-fragment-el {
-        height: 100px;
-        margin-top: 50px;
-        margin-left: 150px;
-    }
-
-    .product-image-fragment-el-1 {
-        height: 50px;
-        margin-top: 180px;
-        margin-left: 250px;
-        transform: rotate(20deg);
-    }
-
-    .product-image-fragment-el-2 {
-        height: 100px;
-        margin-top: 60px;
-        margin-left: 350px;
+    .product-image-main-el, .product-image-bg-el {
+        width: 80%;
     }
 </style>
 
@@ -96,8 +66,9 @@
                 this.$refs['parallax-container'],
                 {
                     relativeInput: true,
-                    scalarX: 2,
-                    scalarY: 5,
+                    limitY: 20,
+                    limitX: 40,
+                    hoverOnly: true,
                 }
             );
         }

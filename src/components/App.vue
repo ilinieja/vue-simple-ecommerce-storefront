@@ -5,7 +5,7 @@
                 <nav class="nav">
                     <div class="container">
                         <div class="nav-left">
-                            <router-link to="/" class="nav-item">Minimal</router-link>
+                            <router-link to="/" class="nav-item">Pusheen</router-link>
                         </div>
                         <span class="nav-toggle">
                             <span></span>
