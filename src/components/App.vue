@@ -7,12 +7,7 @@
                         <div class="nav-left">
                             <router-link to="/" class="nav-item">Pusheen</router-link>
                         </div>
-                        <span class="nav-toggle">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>
-                        <div class="nav-right nav-menu">
+                        <div class="nav-right">
                             <a class="nav-item" href="mailto:b2709f1b@gmail.com?Subject=Landing store demo feedback">Contact</a>
                         </div>
                     </div>
