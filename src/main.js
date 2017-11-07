@@ -1,5 +1,8 @@
-const localServerUrl = `http://localhost:${process.env.PORT || 3000}`;
-window.endpoint = process.env.SERVER_URL || localServerUrl;
+if (process.env.NODE_ENV === 'production') {
+    window.endpoint = 'https://poc-landing-store.herokuapp.com';
+} else {
+    window.endpoint = 'http://localhost:3000';
+}
 
 window.moment = require('moment');
 window.axios = require('axios');
