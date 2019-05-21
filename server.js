@@ -18,7 +18,11 @@ const gateway = braintree.connect({
     privateKey: process.env.BT_PRIVATE_KEY
 });
 
-app.use(cors());
+if (process.env.NODE_ENV !== 'production') {
+    app.use(cors());
+}
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());

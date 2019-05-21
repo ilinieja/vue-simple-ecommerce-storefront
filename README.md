@@ -21,15 +21,19 @@ Available online [here](https://poc-landing-store.herokuapp.com/)
 #### Environment vars:
 All needed environment variables are listed inside `.env.default` without values, with comments
 
-Environment vars can be set in `.env` file in project root for local project run.
+Environment vars can be set in `.env` file in project root or in app settings for Heroku deployment.
 
-## Build and  run
+#### Prod build:
+``` bash
+# build frontend for production with minification
+npm run build
+```
+
+
+## Build and local run
 ``` bash
 # install dependencies
 npm install
-
-# build frontend for production with minification
-npm run build
 
 # run server
 npm start
